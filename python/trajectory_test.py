@@ -1,4 +1,5 @@
 # input is a trajectory Q  and a couple of trajectory S to query on
+from matplotlib.pyplot import figure
 
 # each trajectory is a sequence of points
 # each point is (x,y)
@@ -6,9 +7,9 @@
 q = [(1,1),(2,2),(3,3)]
 
 S = []
-S.append([(1,0),(0,2),(2,3)])
-S.append([(1,1),(0,2.5),(2,3.5)])
-S.append([(1,1.5),(1,2),(3,3)])
+S.append([(1,0),(2, 3),(2,3)])
+S.append([(1,3),(2, 4),(5, 3.8)])
+S.append([(1,1.5),(2, 6),(3, 7)])
 print q
 
 for t in S : # for  each trajaetory in S, 
@@ -54,6 +55,18 @@ def t_query(q, S):
     for t in S:
         print 'distance between ', q, ' and ', t,  ' is ' ,traj_sim(q, t)
 
-# k Best-Connected Trajectories
-
 t_query(q, S)
+
+import matplotlib.pyplot as plt
+zipq = zip(*q)
+plt.figure(figsize=(10,5))
+plt.plot(zipq[0], zipq[1], '-bo')
+plt.text(zipq[0][-1], zipq[1][-1] + 0.2, s="q")
+for i, t in enumerate(S):
+    zipt = zip(*t)
+    plt.plot(zipt[0], zipt[1], '-rx')
+    plt.text(zipt[0][-1], zipt[1][-1] + 0.2, s="trajectory"+str(i))
+plt.xlim([0,8])
+plt.ylim([-1,8])
+plt.show()
+
